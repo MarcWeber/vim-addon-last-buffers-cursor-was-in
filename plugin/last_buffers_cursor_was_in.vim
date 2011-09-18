@@ -4,6 +4,7 @@
 " remember that you can still use c-^ to toggle buffer
 " using many tabs and mappings as show in vim-addon-other can also speed you
 " and give O(1) access to about 10 files
+" There are also more bloated plugins such as FuzzyFinder, ...
 
 " vam#DefineAndBind('s:c','g:last_bufs', '{}')
 if !exists('g:last_bufs') | let g:last_bufs = {} | endif | let s:c = g:last_bufs
@@ -17,6 +18,8 @@ fun! BufLastAdd()
   " operates in place:
   call filter(s:c.last_bufs, 'v:val !='.string(n))
   call insert(s:c.last_bufs, n, 0)
+  " trim:
+  let s:c.last_bufs = s:c.last_bufs[0:s:c.max_files]
 endf
 
 augroup LAST_BUFS
